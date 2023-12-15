@@ -8,14 +8,15 @@
 import Foundation
 
 enum FoodTypes {
+    
     struct FoodTypesRawList: Decodable {
-        var foodTypesRaw: [FoodTypeRaw]
+        let foodTypesRaw: [FoodTypeRaw]
     }
     
     struct FoodTypeRaw: Decodable {
-        var id: Int
-        var imageType: String
-        var name: String
+        let id: Int
+        let imageType: String
+        let name: String
         
         enum CodingKeys: String, CodingKey {
             case id = "id"
@@ -25,7 +26,7 @@ enum FoodTypes {
     }
     
     struct FoodType {
-        var id: String
-        var name: String
+        let id: String
+        let name: String
     }
 }

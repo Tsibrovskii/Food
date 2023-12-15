@@ -25,9 +25,11 @@ extension APIRequestProtocol {
     var HTTPMethod: Method {
         return .get
     }
+    
     var parameters: [String: String]? {
         return nil
     }
+    
     var headers: HTTPHeaders {
         return [
             "Content-Type": "application/json"

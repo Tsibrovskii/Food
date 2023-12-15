@@ -12,16 +12,10 @@ protocol ViewProtocol: AnyObject {
     func update(value: String)
     func showError()
     func showEmpty()
+    func showLoader()
 }
 
-class ViewController: UIViewController, ViewProtocol, UITextFieldDelegate {
-    func showError() {
-        
-    }
-    
-    func showEmpty() {
-        
-    }
+class ViewController: UIViewController {
     
     private lazy var autocompleteInput: UITextField = {
         let autocompleteInput = UITextField()
@@ -40,11 +34,8 @@ class ViewController: UIViewController, ViewProtocol, UITextFieldDelegate {
         return searchButton
     }()
     
-    @objc
-    func searchFoodTypes() {
-        print("click \(autocompleteInput.text ?? "")")
-    }
-
+    private let viewModel: ViewModelProtocol
+    
     init(viewModel: ViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -58,24 +49,65 @@ class ViewController: UIViewController, ViewProtocol, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         view.addSubview(autocompleteInput)
         view.addSubview(searchButton)
-        autocompleteInput.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.translatesAutoresizingMaskIntoConstraints = false
-        autocompleteInput.snp.makeConstraints{(make) -> Void in
+        
+        layoutSubviews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
+    }
+    
+    @objc
+    func searchFoodTypes() {
+        print("click \(autocompleteInput.text ?? "")")
+    }
+}
+
+
+extension ViewController: ViewProtocol {
+    func showLoader() {
+        
+    }
+    
+    func showError() {
+        
+    }
+    
+    func showEmpty() {
+        
+    }
+
+    func update(value: String) {
+//        view.update(value)
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    
+}
+
+
+private extension ViewController {
+    
+    func layoutSubviews() {
+        autocompleteInput.snp.makeConstraints { make in
             make.width.equalTo(200)
-            make.centerX.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
-        searchButton.snp.makeConstraints({(make) -> Void in
+        
+        searchButton.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.centerX.equalToSuperview()
             make.top.equalTo(autocompleteInput.snp.bottom).offset(10)
-        })
-    }
-    
-    let viewModel: ViewModelProtocol
-    
-    func update(value: String) {
-//        view.update(value)
+        }
     }
 }
