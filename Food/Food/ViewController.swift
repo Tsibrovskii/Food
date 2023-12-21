@@ -67,8 +67,12 @@ class ViewController: UIViewController {
     }
     
     @objc
-    func searchFoodTypes() {
-        print("click \(autocompleteInput.text ?? "")")
+    func searchFoodTypes() async {
+        do {
+            try await viewModel.autocompleteSearch(autocompleteInput.text ?? "")
+        } catch {
+            print("Error: \(error)")
+        }
     }
 }
 

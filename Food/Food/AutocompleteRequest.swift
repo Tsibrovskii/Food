@@ -6,33 +6,44 @@
 //
 
 import Foundation
-import Alamofire
 
-struct NewsListRequest: APIRequestProtocol {
+struct AutocompleteRequest: APIRequestProtocol {
+    func makeRequest(host: String) -> URLRequest? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = host
+        urlComponents.path = endpoint
+        urlComponents.queryItems = parameters
+        guard let url = urlComponents.url else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod
+        headers?.forEach({ (key: String, value: String) in
+            request.addValue(value, forHTTPHeaderField: key)
+        })
+        return request
+    }
+    
+    var headers: [String: String]? {
+        return [
+            "apikey": "AgyTVSI1YGWROrV03KcYUlhsT0GHPtNt"
+        ]
+    }
+    
     let query: String
     let number: Int
-    let endpoint: String = "https://api.apilayer.com/spoonacular/recipes/autocomplete"
-
-    func makeRequest() -> Alamofire.Request {
-        return AF.request(endpoint, method: HTTPMethod, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-    }
+    let endpoint: String
         
-    var parameters: [String: String]? {
-        let result: [String : String] = [
-            "query": query,
-            "number": String(number)
+    var parameters: [URLQueryItem]? {
+        let result: [URLQueryItem] = [
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "number", value: String(number))
         ]
         return result
     }
-    
-    var headers: HTTPHeaders {
-        return [
-            "Content-Type": "application/json"
-        ]
-    }
 
-    init(query: String, number: Int) {
+    init(query: String, number: Int, endpoint: String) {
         self.query = query
         self.number = number
+        self.endpoint = endpoint
     }
 }

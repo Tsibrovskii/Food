@@ -6,37 +6,50 @@
 //
 
 import Foundation
-import Alamofire
-
-typealias Method = Alamofire.HTTPMethod
 
 protocol APIRequestProtocol {
     
-    var HTTPMethod: Method { get }
-    var parameters: [String: String]? { get }
-    var headers: HTTPHeaders { get }
+    var HTTPMethod: String { get }
     var endpoint: String { get }
+    var parameters: [URLQueryItem]? { get }
+    var headers: [String: String]? { get }
+    var host: String { get }
     
-    func makeRequest() -> Alamofire.Request
+    func makeRequest(host: String) -> URLRequest?
 }
 
 extension APIRequestProtocol {
     
-    var HTTPMethod: Method {
-        return .get
+    var HTTPMethod: String {
+        return "GET"
     }
     
     var parameters: [String: String]? {
         return nil
     }
     
-    var headers: HTTPHeaders {
+    var headers: [String: String]? {
         return [
-            "Content-Type": "application/json"
+            "apikey": "AgyTVSI1YGWROrV03KcYUlhsT0GHPtNt"
         ]
     }
     
-    func makeRequest() -> Alamofire.Request? {
-        return AF.request(endpoint, method: HTTPMethod, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+    var host: String {
+        return "api.apilayer.com"
+    }
+    
+    func makeRequest() -> URLRequest? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = host
+        urlComponents.path = endpoint
+        urlComponents.queryItems = parameters
+        guard let url = urlComponents.url else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod
+        headers?.forEach({ (key: String, value: String) in
+            request.addValue(value, forHTTPHeaderField: key)
+        })
+        return request
     }
 }
