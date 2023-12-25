@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F901F3C2B399C6C00EF33E9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F901F3B2B399C6C00EF33E9 /* SearchViewController.swift */; };
+		4F901F3E2B39A04B00EF33E9 /* SearchViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F901F3D2B39A04B00EF33E9 /* SearchViewControllerFactory.swift */; };
 		4FDE53292B1B892D0081B7C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE53282B1B892D0081B7C9 /* AppDelegate.swift */; };
 		4FDE532D2B1B892D0081B7C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE532C2B1B892D0081B7C9 /* ViewController.swift */; };
 		4FDE53322B1B89300081B7C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE53312B1B89300081B7C9 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F901F3B2B399C6C00EF33E9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4F901F3D2B39A04B00EF33E9 /* SearchViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerFactory.swift; sourceTree = "<group>"; };
 		4FDE53252B1B892D0081B7C9 /* Food.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FDE53282B1B892D0081B7C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FDE532C2B1B892D0081B7C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,8 +76,10 @@
 				4FDE53512B24F26C0081B7C9 /* Models */,
 				4FDE53282B1B892D0081B7C9 /* AppDelegate.swift */,
 				4FDE533C2B1B89B60081B7C9 /* ModuleFactory.swift */,
+				4F901F3D2B39A04B00EF33E9 /* SearchViewControllerFactory.swift */,
 				4FDE53572B2602630081B7C9 /* APIRequestProtocol.swift */,
 				4FDE53402B1B8A020081B7C9 /* ViewModelProtocol.swift */,
+				4F901F3B2B399C6C00EF33E9 /* SearchViewController.swift */,
 				4FDE532C2B1B892D0081B7C9 /* ViewController.swift */,
 				4FDE53422B2203DB0081B7C9 /* ApiEndpointHelper.swift */,
 				4FDE53592B2B4E050081B7C9 /* AutocompleteRequest.swift */,
@@ -178,8 +184,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FDE53432B2203DB0081B7C9 /* ApiEndpointHelper.swift in Sources */,
+				4F901F3E2B39A04B00EF33E9 /* SearchViewControllerFactory.swift in Sources */,
 				4FDE533D2B1B89B60081B7C9 /* ModuleFactory.swift in Sources */,
 				4FDE53412B1B8A020081B7C9 /* ViewModelProtocol.swift in Sources */,
+				4F901F3C2B399C6C00EF33E9 /* SearchViewController.swift in Sources */,
 				4FDE532D2B1B892D0081B7C9 /* ViewController.swift in Sources */,
 				4FDE53582B2602630081B7C9 /* APIRequestProtocol.swift in Sources */,
 				4FDE53292B1B892D0081B7C9 /* AppDelegate.swift in Sources */,

@@ -13,31 +13,17 @@ protocol ViewProtocol: AnyObject {
     func showError()
     func showEmpty()
     func showLoader()
+    func searchFoodTypes(_ amount: String)
 }
 
 class ViewController: UIViewController {
     
-    private lazy var autocompleteInput: UITextField = {
-        let autocompleteInput = UITextField()
-        autocompleteInput.backgroundColor = .green
-        autocompleteInput.delegate = self
-        autocompleteInput.autocorrectionType = .no
-        return autocompleteInput
-    }()
-    
-    private lazy var searchButton: UIButton = {
-        let searchButton = UIButton()
-        searchButton.backgroundColor = .green
-        searchButton.setTitle("Search", for: .normal)
-        searchButton.tintColor = .blue
-        searchButton.addTarget(self, action: #selector(searchFoodTypes), for: .touchUpInside)
-        return searchButton
-    }()
-    
     private let viewModel: ViewModelProtocol
+    private let searchViewController: SearchViewController
     
-    init(viewModel: ViewModelProtocol) {
+    init(viewModel: ViewModelProtocol, searchViewController: SearchViewController) {
         self.viewModel = viewModel
+        self.searchViewController = searchViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,9 +35,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        view.addSubview(autocompleteInput)
-        view.addSubview(searchButton)
+
+        searchViewController.delegate = self
         
         layoutSubviews()
     }
@@ -66,12 +51,13 @@ class ViewController: UIViewController {
         viewModel.viewDidAppear()
     }
     
-    @objc
-    func searchFoodTypes() async {
-        do {
-            try await viewModel.autocompleteSearch(autocompleteInput.text ?? "")
-        } catch {
-            print("Error: \(error)")
+    func searchFoodTypes(_ amount: String) {
+        Task {
+            do {
+                try await viewModel.autocompleteSearch(amount)
+            } catch {
+                print("Error: \(error)")
+            }
         }
     }
 }
@@ -103,15 +89,12 @@ extension ViewController: UITextFieldDelegate {
 private extension ViewController {
     
     func layoutSubviews() {
-        autocompleteInput.snp.makeConstraints { make in
-            make.width.equalTo(200)
-            make.center.equalToSuperview()
-        }
+        let searchView: UIView = searchViewController.view
+        view.addSubview(searchView)
         
-        searchButton.snp.makeConstraints { make in
-            make.width.equalTo(100)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(autocompleteInput.snp.bottom).offset(10)
+        searchView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.height.equalTo(200)
         }
     }
 }

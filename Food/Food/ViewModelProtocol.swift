@@ -49,7 +49,7 @@ final class ViewModel: ViewModelProtocol {
     func autocompleteSearch(_ text: String) async throws {
         do {
             if let request = AutocompleteRequest(query: text, number: 10, endpoint: "/spoonacular/recipes/autocomplete").makeRequest(host: "api.apilayer.com") {
-                let (data, response) = try await URLSession.shared.data(for: request)
+                let (data, _) = try await URLSession.shared.data(for: request)
                 print("response \(String(decoding: data, as: UTF8.self))")
             }
         } catch {

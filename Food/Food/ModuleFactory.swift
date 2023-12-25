@@ -13,7 +13,10 @@ class ModuleFactory {
     func make() -> UIViewController {
         let viewModel = ViewModel()
 
-        let vc = ViewController(viewModel: viewModel)
+        let vc = ViewController(
+            viewModel: viewModel,
+            searchViewController: SearchViewControllerFactory().make()
+        )
         viewModel.view = vc
         return vc
     }
