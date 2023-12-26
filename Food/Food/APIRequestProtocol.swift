@@ -13,7 +13,6 @@ protocol APIRequestProtocol {
     var endpoint: String { get }
     var parameters: [URLQueryItem]? { get }
     var headers: [String: String]? { get }
-    var host: String { get }
     
     func makeRequest(host: String) -> URLRequest?
 }
@@ -34,11 +33,7 @@ extension APIRequestProtocol {
         ]
     }
     
-    var host: String {
-        return "api.apilayer.com"
-    }
-    
-    func makeRequest() -> URLRequest? {
+    func makeRequest(host: String = "api.apilayer.com") -> URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = host

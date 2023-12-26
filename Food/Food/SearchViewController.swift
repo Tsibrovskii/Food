@@ -58,6 +58,6 @@ private extension SearchViewController {
             make.width.equalTo(100)
             make.centerX.equalToSuperview()
             make.top.equalTo(autocompleteInput.snp.bottom).offset(10)
-        }
+        }        
     }
 }

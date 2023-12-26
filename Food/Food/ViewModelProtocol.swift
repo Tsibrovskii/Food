@@ -48,7 +48,7 @@ final class ViewModel: ViewModelProtocol {
     
     func autocompleteSearch(_ text: String) async throws {
         do {
-            if let request = AutocompleteRequest(query: text, number: 10, endpoint: "/spoonacular/recipes/autocomplete").makeRequest(host: "api.apilayer.com") {
+            if let request = AutocompleteRequest(query: text).makeRequest(host: "api.apilayer.com") {
                 let (data, _) = try await URLSession.shared.data(for: request)
                 print("response \(String(decoding: data, as: UTF8.self))")
             }
@@ -56,6 +56,7 @@ final class ViewModel: ViewModelProtocol {
             throw error
         }
     }
+    
     weak var view: ViewProtocol?
     
 //    private userDefaults: UserDefaults

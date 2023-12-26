@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     init(viewModel: ViewModelProtocol, searchViewController: SearchViewController) {
         self.viewModel = viewModel
         self.searchViewController = searchViewController
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,6 +53,7 @@ class ViewController: UIViewController {
     }
     
     func searchFoodTypes(_ amount: String) {
+            
         Task {
             do {
                 try await viewModel.autocompleteSearch(amount)
@@ -85,16 +87,18 @@ extension ViewController: UITextFieldDelegate {
     
 }
 
-
 private extension ViewController {
     
     func layoutSubviews() {
+        addChild(searchViewController)
+        
         let searchView: UIView = searchViewController.view
         view.addSubview(searchView)
         
         searchView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.height.equalTo(200)
         }
+        
+        searchViewController.didMove(toParent: self)
     }
 }
